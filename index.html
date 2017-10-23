@@ -1,0 +1,72 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Front-End API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="bootstrap-table.css">
+        <script src="bootstrap-table.js"></script>
+        
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="page-wrap">
+        <h1 id="clickable">Players</h1>
+        <div id="players-container"></div>
+    </div>
+
+    <script id="playersInfo" type="text/x-handlebars-template">
+        <div class="table-responsive">
+            <table class="table" data-toggle="table" data-search="true" data-pagination="true"
+            data-show-columns="true">
+                <thead>
+                    <tr>
+                        <th data-field="Name" data-sortable="true"  >Name</th>
+                        <th data-field="Jersey" data-sortable="true">Jersey</th>
+                        <th data-field="Age" data-sortable="true">Age</th>
+                        <th data-field="Position" data-sortable="true">Position</th>
+                        <th data-field="Height" data-sortable="true">Height (kg)</th>
+                        <th data-field="Weight" data-sortable="true">Weight (m)</th>
+                        <th data-field="Team" data-sortable="true">Team</th>
+                        <th data-field="Drafted" data-sortable="true">Drafted</th>
+                        <th data-field="Years-Pro" data-sortable="true">Years-Pro</th>
+                        <th data-field="Nationality" data-sortable="true">Nationality</th>
+                    </tr>
+                </thead>
+                 <tbody>
+                     {{#league}} {{#each standard}}
+                    <tr>
+                        <td>{{firstName}} {{lastName}}</td>
+                        <td>{{jersey}}</td>
+                        <td>{{dateOfBirthUTC}}</td>
+                        <td>{{pos}}</td>
+                        <td>{{heightMeters}}</td>
+                        <td>{{weightKilograms}}</td>
+                        <td>{{actualTeam teamId}}</td>
+                        <td>{{nbaDebutYear}}</td>
+                        <td>{{yearsPro}}</td>
+                        <td>{{country}}</td>
+                    </tr>
+                    {{/each}} {{/league}}
+                </tbody>
+            </table>
+        </div>
+        <div class="Stats">
+                <div id="stats-table">
+                    <div></div>
+                </div>
+        </div>
+    </script>
+    <script src="handlebars-v4.0.11.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
