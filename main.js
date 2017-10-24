@@ -1,6 +1,7 @@
 
 var ourRequest = new XMLHttpRequest();
-ourRequest.open('GET', 'http://data.nba.net/prod/v1/2017/players.json');
+ourRequest.open('GET', 'http://data.nba.net/prod/v1/2017/players.json'
+);
 ourRequest.onload = function() {
   if (ourRequest.status >= 200 && ourRequest.status < 400) {
     var data = JSON.parse(ourRequest.responseText);
@@ -30,18 +31,18 @@ $(".page-wrap").click(function() {
 //     $('#example').DataTable();
 // } );
 
-// Handlebars.registerHelper("calculateAge", function(dateOfBirthUTC) {
-//   var age = new Date().toISOString().slice(0,10) - dateOfBirthUTC;
-//   console.log(new Date().to().slice(0,10));
-// //   return age;
+Handlebars.registerHelper("calculateAge", function(dateOfBirthUTC) {
+  var age = new Date().toISOString().slice(0,10) - dateOfBirthUTC;
+  console.log(new Date().to().slice(0,10));
+  return age;
 
-// //   if (age > 0) {
-// //     return age + " years old";
-// //   } else {
-// //     return "Less than a year old";
-// //   }
+  if (age > 0) {
+    return age + " years old";
+  } else {
+    return "Less than a year old";
+  }
 
-// });
+});
 Handlebars.registerHelper("actualTeam", function(teamId) {
 if (teamId == 1610612760)
 return "OKC Thunder"
@@ -113,29 +114,49 @@ function createHTML(playersData) {
   playersContainer.innerHTML = ourGeneratedHTML;
 }
 
-//Papildoma statistikos lentele/nuotrauku ikelimas
+
+// $( "th" ).click(function() {
+//     var text = $( this ).html();
+//     $( "input" ).val( text );
+// });
 
 
-clickable.addEventListener("click", function() {
-var secondRequest = new XMLHttpRequest();
-secondRequest.open('GET', 'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/'+ teamId +'/2017/260x190/'+ personId +'.png');
-// secondRequest.open('GET', 'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612739/2017/260x190/2544.png');
-secondRequest.onload = function() {
-  if (secondRequest.status >= 200 && secondRequest.status < 400) {
-    var data = JSON.parse(secondRequest.responseText);
-    createStats(data);
-  } else {
-    console.log("We connected to the server, but it returned an error.");
-  }
-};
-function createStats(playersStats) {
-    var statsTemplate = document.getElementById("playersInfo").innerHTML;
-    var compiledTemplate = Handlebars.compile(statsTemplate);
-    var ourGeneratedHTML = compiledTemplate(playersStats);
-  
-    var statsContainer = document.getElementById("stats-table");
-    statsContainer.innerHTML = ourGeneratedHTML;
-  }});
-  Handlebars.registerHelper("selectTeam", function(value) {
-    
-  });
+$(document).ready(function(){
+$('#mytable').on('click-cell.bs.table', function (field, value, row, $element){
+    zaidejas = $element.PersonId;
+    komanda = $element.TeamId;
+    $(function(){
+            var $players = $('#players-stats');
+            var url = 'http://data.nba.net/10s/prod/v1/2017/players/'+ zaidejas + '_profile.json'; 
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(player){
+                    if (player.league.standard.stats.latest.ppg == -1){
+                        $players.html("<p>" +" PPG: 0" + "<br>" + "RPG: 0" + "<br>" + "APG: 0" + "<br>" + "SPG: 0" + "<br>"+ "MPG: 0" + "<br></p>")
+                    }
+                    else{
+                    $players.html('<p>'+ "PPG: " + player.league.standard.stats.latest.ppg + " " + "<br>"
+                                 + "RPG: " + player.league.standard.stats.latest.rpg + " " + "<br>"
+                                 + "APG: "+ player.league.standard.stats.latest.apg + " " + "<br>"
+                                 + "SPG: " + player.league.standard.stats.latest.spg + " " + "<br>"
+                                 + "MPG: "+ player.league.standard.stats.latest.mpg + '</p>')}
+                }
+            })
+        })
+        $(function(){
+            var $teams = $('#players-pics');
+            var url1 = 'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/'+ komanda +'/2017/260x190/'+ zaidejas +'.png'; 
+            $.ajax({
+                type: 'GET',
+                url: url1,
+                Error:function(team){
+                    $teams.html('<div><img src="src/no-person.png"></div>')},
+                success: function(team){
+                    $teams.html('<div><img src=' + url1 + '></div>')
+                }
+                
+            })
+        })
+    });
+});

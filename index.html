@@ -22,10 +22,13 @@
         <h1 id="clickable">Players</h1>
         <div id="players-container"></div>
     </div>
+    <div id="players-stats"></div>
+    <div id="players-pics"></div>
+    </div>
 
     <script id="playersInfo" type="text/x-handlebars-template">
         <div class="table-responsive">
-            <table class="table" data-toggle="table" data-search="true" data-pagination="true"
+            <table id="mytable" class="table" data-toggle="table" data-search="true" data-pagination="true"
             data-show-columns="true">
                 <thead>
                     <tr>
@@ -39,6 +42,8 @@
                         <th data-field="Drafted" data-sortable="true">Drafted</th>
                         <th data-field="Years-Pro" data-sortable="true">Years-Pro</th>
                         <th data-field="Nationality" data-sortable="true">Nationality</th>
+                        <th data-field="PersonId" data-sortable="true" data-visible="false">PersonID</th>
+                        <th data-field="TeamId" data-sortable="true" data-visible="false">TeamId</th>
                     </tr>
                 </thead>
                  <tbody>
@@ -54,6 +59,8 @@
                         <td>{{nbaDebutYear}}</td>
                         <td>{{yearsPro}}</td>
                         <td>{{country}}</td>
+                        <td>{{personId}}</td>
+                        <td>{{teamId}}</td>
                     </tr>
                     {{/each}} {{/league}}
                 </tbody>
