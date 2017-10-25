@@ -1,0 +1,54 @@
+html,
+body {
+    margin: 5px;
+    padding: 0;
+}
+
+.fixed-table-toolbar {
+    background-color: #0d3f8b;
+}
+
+#players-pics {
+    /* background: transparent; */
+    width: 260px;
+    padding: 0 5px 0 5px;
+}
+
+#players-pics p {
+    color: #f2f2f2;
+    font-size: 2em;
+    margin: auto;
+    text-align: center;
+}
+
+#players-stats {
+    margin-left: 5px;
+}
+
+#players-stats p {
+    position: absolute;
+    font-family: 'Audiowide', cursive;
+    color: #f2f2f2;
+    left: 280px;
+    top: 10px;
+    font-size: 2em;
+}
+
+#statsBar {
+    background: linear-gradient(to right, black, #e0dede);
+}
+
+@media screen and (max-width: 450px) {
+    #players-stats p {
+        position: inherit;
+    }
+}
+
+.fixed-table-toolbar::before {
+    content: "NBA Players Stats";
+    color: white;
+    position: relative;
+    font-size: 3em;
+    margin-left: 10px;
+
+}
