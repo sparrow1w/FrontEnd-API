@@ -1,7 +1,5 @@
 var ourRequest = new XMLHttpRequest();
-// const proxyURL = "https://robwu.nl/cors-anywhere.html/";
 const requestURL = "http://cors-anywhere.herokuapp.com/http://data.nba.net/prod/v1/2017/players.json";
-// const rightUrl = proxyURL + requestURL;
 ourRequest.open('GET', requestURL);
 ourRequest.onload = function () {
     if (ourRequest.status >= 200 && ourRequest.status < 400) {
@@ -140,3 +138,4 @@ $(document).ready(function() {
         })
     })
 })
+
